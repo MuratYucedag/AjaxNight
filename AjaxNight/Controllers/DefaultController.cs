@@ -22,5 +22,13 @@ namespace AjaxNight.Controllers
             var jsonValues = JsonConvert.SerializeObject(values);
             return Json(jsonValues);
         }
+
+        public IActionResult CreateProduct(Product product)
+        {
+            _context.Products.Add(product);
+            _context.SaveChanges();
+            var values = JsonConvert.SerializeObject(product);
+            return Json(values);
+        }
     }
 }
