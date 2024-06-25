@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
 }
 
@@ -20,7 +19,16 @@
 <div class="alert alert-dark">Ürün Listesi</div>
 
 <div id="productlist">
+</div>
 
+<div class="alert alert-success">Yeni Ürün Girişi</div>
+<div>
+    <input type="text" placeholder="Ürün Adını Giriniz" id="productname" class="form-control" />
+    <br />
+    <input type="text" placeholder="Ürün Stok Sayısını Giriniz" id="productstock" class="form-control" />
+    <br />
+    <input type="text" placeholder="Ürün Fiyatını Giriniz" id="productprice" class="form-control" />
+    <br />
 </div>
 
 <script>
@@ -35,20 +43,20 @@
                 let products = jQuery.parseJSON(funk1);
                 console.log(products);
 
-                let tablehtml="<table class=table table-bordered>"
-                             +"<tr>"
-                             +"<th>Ürün Id</th>"
-                             +"<th>Ürün Adı</th>"
-                             +"<th>Ürün Fiyat</th>"
-                             +"<th>Ürün Stok</th>"
-                             +"</tr>"
-                             $.each(products, (index, value) => {
-                             tablehtml+=`<tr>`
-                             +`<td>${value.ProductId}</td>`
-                             +`<td>${value.ProductName}</td>`
-                             +`<td>${value.Stock}</td>`
-                             +`<td>${value.Price}</td>`
-                             +`</tr>`
+                let tablehtml = "<table class=table table-bordered>"
+                    + "<tr>"
+                    + "<th>Ürün Id</th>"
+                    + "<th>Ürün Adı</th>"
+                    + "<th>Ürün Fiyat</th>"
+                    + "<th>Ürün Stok</th>"
+                    + "</tr>"
+                $.each(products, (index, value) => {
+                    tablehtml += `<tr>`
+                        + `<td>${value.ProductId}</td>`
+                        + `<td>${value.ProductName}</td>`
+                        + `<td>${value.Price}</td>`
+                        + `<td>${value.Stock}</td>`
+                        + `</tr>`
                 });
                 tablehtml += "</table>";
                 $("#productlist").html(tablehtml);
@@ -56,5 +64,22 @@
         });
     });
 
+    $("#btncreate").click(function () {
+        let productvalues = {
+            ProductName: $("#productname").val(),
+            Stock: $("#productstock").val(),
+            Price: $("#productprice").val()
+        };
+
+        $.ajax({
+            type: "post",
+            url: "/Default/CreateProduct/",
+            data: productvalues,
+            success: function (funk2) {
+                let result = jQuery.parseJSON(funk2);
+                alert("Ürün Başarıyla Eklendi");
+            }
+        });
+    });
 
 </script>
