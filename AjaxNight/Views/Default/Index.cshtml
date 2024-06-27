@@ -50,6 +50,20 @@
     <input type="text" placeholder="Bilgisi Getirilecek Ürün Id Değerini Giriniz" id="productgetid" class="form-control" />
     <br />
 </div>
+
+<hr />
+
+<div class="alert alert-success">Ürün Güncelleme Paneli</div>
+<div>
+    <input type="text" placeholder="Güncellenecek Ürün Id Giriniz" id="productidedit" class="form-control" />
+    <br />
+    <input type="text" placeholder="Güncellenecek Ürün Adını Giriniz" id="productnameedit" class="form-control" />
+    <br />
+    <input type="text" placeholder="Güncellenecek Ürün Stok Sayısını Giriniz" id="productstockedit" class="form-control" />
+    <br />
+    <input type="text" placeholder="Güncellenecek Ürün Fiyatını Giriniz" id="productpriceedit" class="form-control" />
+    <br />
+</div>
     
 <script>
 
@@ -124,6 +138,23 @@
             success: function (funk4) {
                 let result = jQuery.parseJSON(funk4);
                 console.log(result);
+            }
+        });
+    });
+
+    $("#btnupdate").click(function () {
+        let values = {
+            ProductId: $("#productidedit").val(),
+            ProductName: $("#productnameedit").val(),
+            Price: $("#productpriceedit").val(),
+            Stock: $("#productstockedit").val()
+        };
+
+        $.ajax({
+            url: "/Default/UpdateProduct/",
+            data: values,
+            success: function (funk5) {
+                swal("Güncelleme Başarıyla Yapıldı");
             }
         });
     });
