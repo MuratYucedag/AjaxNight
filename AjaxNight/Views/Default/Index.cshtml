@@ -23,6 +23,8 @@
 <div id="productlist">
 </div>
 
+<hr />
+
 <div class="alert alert-success">Yeni Ürün Girişi</div>
 <div>
     <input type="text" placeholder="Ürün Adını Giriniz" id="productname" class="form-control" />
@@ -30,6 +32,14 @@
     <input type="text" placeholder="Ürün Stok Sayısını Giriniz" id="productstock" class="form-control" />
     <br />
     <input type="text" placeholder="Ürün Fiyatını Giriniz" id="productprice" class="form-control" />
+    <br />
+</div>
+
+<hr />
+
+<div class="alert alert-success">Ürün Silme Ekranı</div>
+<div>
+    <input type="text" placeholder="Silinecek Ürün Id Değerini Giriniz" id="productdeletedid" class="form-control" />
     <br />
 </div>
 
@@ -80,6 +90,19 @@
             success: function (funk2) {
                 let result = jQuery.parseJSON(funk2);
                 swal("Tebrikler!", "Ürün Başarıyla Eklendi", "success");
+            }
+        });
+    });
+
+    $("#btndelete").click(function () {
+        let id = $("#productdeletedid").val();
+        $.ajax({
+            url: "/Default/DeleteProduct/" + id,
+            type: "post",
+            contentType: "application/json",
+            dataType: "json",
+            success: function (funk3) {
+                swal("Ürün Başarıyla Silindi");
             }
         });
     });
