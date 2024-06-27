@@ -43,6 +43,14 @@
     <br />
 </div>
 
+<hr />
+
+<div class="alert alert-success">Ürün Detayları Getirme Paneli</div>
+<div>
+    <input type="text" placeholder="Bilgisi Getirilecek Ürün Id Değerini Giriniz" id="productgetid" class="form-control" />
+    <br />
+</div>
+
 <script>
 
     $("#btnlist").click(function () {
@@ -103,6 +111,19 @@
             dataType: "json",
             success: function (funk3) {
                 swal("Ürün Başarıyla Silindi");
+            }
+        });
+    });
+
+    $("#btnget").click(function () {
+        let id = $("#productgetid").val();
+        $.ajax({
+            contentType: "application/json",
+            dataType: "json",
+            url: "/Default/GetProduct/" + id,
+            success: function (funk4) {
+                let result = jQuery.parseJSON(funk4);
+                console.log(result);
             }
         });
     });
